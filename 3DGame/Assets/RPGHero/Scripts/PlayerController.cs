@@ -1,0 +1,64 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class PlayerController : MonoBehaviour
+{
+    public CharacterController controller;
+    public float speed = 12f;
+    new Transform camera;
+    float gravity = 9.81f;
+    float verticalVelocity = 10;
+    public float jumpValue = 10;
+    Animator animator;
+    
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        controller = GetComponent<CharacterController>();
+        animator = GetComponentInChildren<Animator>();
+        camera = Camera.main.transform;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("Vertical");
+        bool isSprinting = Input.GetKey(KeyCode.LeftShift);
+        float sprint = isSprinting ? 1.7f : 1;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            animator.SetTrigger("Attack");
+        }
+        
+        Vector3 move = new Vector3(h, 0, v);
+        animator.SetFloat("Speed",Math.Clamp(move.magnitude, 0, 0.5f) + (isSprinting ? 0.5f : 0));
+
+        if (controller.isGrounded)
+        {
+            if (Input.GetAxis("Jump") > 0)
+            {
+                verticalVelocity = jumpValue;
+            }
+        }
+        else
+        {
+            verticalVelocity -= gravity * Time.deltaTime;
+        }
+
+        if (move.magnitude >= 0.1f)
+        {
+            float angle = Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg + camera.transform.eulerAngles.y;
+            transform.rotation = Quaternion.Euler(0, angle, 0);
+        }
+
+        move = transform.TransformDirection(move);
+        move = new Vector3(move.x * speed * sprint, verticalVelocity, move.z * speed * sprint);
+        controller.Move(move *Time.deltaTime);
+    }
+}
