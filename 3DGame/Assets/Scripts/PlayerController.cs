@@ -61,4 +61,16 @@ public class PlayerController : MonoBehaviour
         move = new Vector3(move.x * speed * sprint, verticalVelocity, move.z * speed * sprint);
         controller.Move(move *Time.deltaTime);
     }
+    
+    public void DoAttack()
+    {
+        transform.Find("Collider").GetComponent<BoxCollider>().enabled = true;
+        StartCoroutine(HideCollider());
+    }
+
+    IEnumerator HideCollider()
+    {
+        yield return new WaitForSeconds(0.3f);
+        transform.Find("Collider").GetComponent<BoxCollider>().enabled = false;
+    }
 }
