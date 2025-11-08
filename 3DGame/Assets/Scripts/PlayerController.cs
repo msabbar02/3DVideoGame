@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    CharacterStats stats;
     public CharacterController controller;
     public float speed = 12f;
     new Transform camera;
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
         camera = Camera.main.transform;
+        stats = GetComponent<CharacterStats>();
     }
 
     // Update is called once per frame

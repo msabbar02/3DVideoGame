@@ -11,4 +11,9 @@ public class AnimationsEvents : MonoBehaviour
         // Add attack logic here
         player.DoAttack();
     }
+    
+    public void PlayerDamage()
+    {
+        transform.GetComponentInParent<EnemyCotroller>().damagePlayer();
+    }
 }
