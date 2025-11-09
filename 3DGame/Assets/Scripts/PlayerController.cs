@@ -63,7 +63,22 @@ public class PlayerController : MonoBehaviour
         move = new Vector3(move.x * speed * sprint, verticalVelocity, move.z * speed * sprint);
         controller.Move(move *Time.deltaTime);
     }
-    
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Healt"))
+        {
+            //Debug.Log("Health Pickup");
+            stats.ChangeHealth(20);
+            Destroy(other.gameObject);
+        }else if (other.CompareTag("LevelItem"))
+        { 
+            //Debug.Log("Level Item Pickup");
+            LevelManager.instance.levelItems += 1;
+            Destroy(other.gameObject);
+        }
+    }
+
     public void DoAttack()
     {
         transform.Find("Collider").GetComponent<BoxCollider>().enabled = true;

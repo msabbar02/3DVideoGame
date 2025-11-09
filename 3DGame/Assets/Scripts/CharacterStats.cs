@@ -17,7 +17,7 @@ public class CharacterStats : MonoBehaviour
 
     public void ChangeHealth(float amount)
     {
-        currentHealth += amount;
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         Debug.Log("Current Health: " + currentHealth + " / " + maxHealth);
         if (currentHealth <= 0)
         {
