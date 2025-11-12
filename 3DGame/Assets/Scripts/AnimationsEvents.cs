@@ -16,4 +16,9 @@ public class AnimationsEvents : MonoBehaviour
     {
         transform.GetComponentInParent<EnemyCotroller>().damagePlayer();
     }
+
+    public void MoveSound()
+    {
+        LevelManager.instance.PlaySound(LevelManager.instance.levelSounds[0], LevelManager.instance.player.position);
+    }
 }

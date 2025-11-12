@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class EnemyCotroller : MonoBehaviour
 {
@@ -34,9 +35,10 @@ public class EnemyCotroller : MonoBehaviour
              if (distance <= agent.stoppingDistance)
              {
                  if (canAttack)
-                 {
-                        // Attack
+                 { 
+                     // Attack
                         animator.SetTrigger("Attack");
+                        LevelManager.instance.PlaySound(LevelManager.instance.levelSounds[4], LevelManager.instance.player.position);
                         StartCoroutine(coolDown());
                  }
              }

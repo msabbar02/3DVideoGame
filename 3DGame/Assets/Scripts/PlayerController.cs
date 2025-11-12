@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             animator.SetTrigger("Attack");
+            LevelManager.instance.PlaySound(LevelManager.instance.levelSounds[4], LevelManager.instance.player.position);
         }
         
         Vector3 move = new Vector3(h, 0, v);
@@ -70,10 +71,12 @@ public class PlayerController : MonoBehaviour
         {
             //Debug.Log("Health Pickup");
             stats.ChangeHealth(20);
+            LevelManager.instance.PlaySound(LevelManager.instance.levelSounds[1], LevelManager.instance.player.position);
             Destroy(other.gameObject);
         }else if (other.CompareTag("LevelItem"))
         { 
             //Debug.Log("Level Item Pickup");
+            LevelManager.instance.PlaySound(LevelManager.instance.levelSounds[2], LevelManager.instance.player.position);
             LevelManager.instance.levelItems += 1;
             Destroy(other.gameObject);
         }
