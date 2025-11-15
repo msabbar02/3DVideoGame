@@ -64,7 +64,7 @@ public class CharacterStats : MonoBehaviour
 
         if (transform.CompareTag("Player"))
         { 
-            Debug.Log("Player has died!");
+            //   Debug.Log("Player has died!");
             PlayerController controller = GetComponent<PlayerController>();
             if (controller != null)
             {

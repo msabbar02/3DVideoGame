@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
         float v = Input.GetAxis("Vertical");
         bool isSprinting = Input.GetKey(KeyCode.LeftShift);
         float sprint = isSprinting ? 1.7f : 1;
-
+        // PARA EL ATTACKE
         if (Input.GetMouseButtonDown(0))
         {
             animator.SetTrigger("Attack");
@@ -65,6 +65,8 @@ public class PlayerController : MonoBehaviour
         controller.Move(move *Time.deltaTime);
     }
 
+    // Este es tu script PlayerController.cs
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Healt"))
@@ -73,11 +75,11 @@ public class PlayerController : MonoBehaviour
             stats.ChangeHealth(20);
             LevelManager.instance.PlaySound(LevelManager.instance.levelSounds[1], LevelManager.instance.player.position);
             Destroy(other.gameObject);
-        }else if (other.CompareTag("LevelItem"))
+        }
+        else if (other.CompareTag("LevelItem"))
         { 
-            //Debug.Log("Level Item Pickup");
             LevelManager.instance.PlaySound(LevelManager.instance.levelSounds[2], LevelManager.instance.player.position);
-            LevelManager.instance.levelItems += 1;
+            LevelManager.instance.AddLevelItem();
             Destroy(other.gameObject);
         }
     }

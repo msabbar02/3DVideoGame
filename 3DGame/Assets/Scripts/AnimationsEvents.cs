@@ -7,7 +7,7 @@ public class AnimationsEvents : MonoBehaviour
     public PlayerController player;
     public void PlayerAttackEvent()
     {
-        Debug.Log("Player Attack Event Triggered");
+       // Debug.Log("Player Attack Event Triggered");
         // Add attack logic here
         player.DoAttack();
     }

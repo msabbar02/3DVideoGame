@@ -1,32 +1,62 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;    
 
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
     public Transform player;
     public int score;
-    public int levelItems;
     public AudioClip[] levelSounds;
+    public int levelItems; 
+    public Transform contenedorDeMonedas; 
+    private int totalLevelItems; 
+  
+
+ 
+    public TextMeshProUGUI itemsRecogidosText; 
+    public TextMeshProUGUI itemsTotalText;     
 
     private void Awake()
     {
         instance = this;
     }
-    // Start is called before the first frame update
+
     void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        if (contenedorDeMonedas != null)
+        {
+            totalLevelItems = contenedorDeMonedas.childCount;
+        }
+        else
+        {
+            Debug.LogError("¡Error! No has asignado el 'contenedorDeMonedas' en el LevelManager.");
+            totalLevelItems = 0;
+        }
+        ActualizarUITexto();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddLevelItem()
     {
-        
+        levelItems += 1; 
+        ActualizarUITexto(); 
     }
+
+    void ActualizarUITexto()
+    {
+        if (itemsRecogidosText != null)
+        {
+            itemsRecogidosText.text = levelItems.ToString();
+        }
     
+        if (itemsTotalText != null)
+        {
+            itemsTotalText.text = totalLevelItems.ToString();
+        }
+    }
     public void PlaySound(AudioClip audioClip, Vector3 position)
     {
         GameObject obj = SoundFXPooler.current.GetPooledObject();

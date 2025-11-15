@@ -16,7 +16,6 @@ public class EnemyCotroller : MonoBehaviour
     
     bool canAttack = true;
     float attackCooldown = 2.0f;
-    float lastAttackTime = 0.0f;
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
